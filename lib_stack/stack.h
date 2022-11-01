@@ -26,7 +26,7 @@ public:
 	Type Top() {
 		if (this->isEmpty())
 		{
-			std::logic_error("Error!!! Stack is empty");
+			throw std::logic_error("Error!!! Stack is empty");
 		}
 		return data[this->top];
 	}
@@ -47,7 +47,7 @@ public:
 		if (!isEmpty()) {
 			Type copy = this->Top();
 			top--;
-			return data[this->Top()];			
+			return copy;
 		}
 		else {
 			throw std::logic_error("Error!!! Stack is empty");

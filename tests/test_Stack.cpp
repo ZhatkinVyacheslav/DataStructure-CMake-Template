@@ -50,3 +50,29 @@ TEST(test_lib_stack, cant_get_pop_when_stack_is_Empty)
 	Stack<int>s1(5);
 	ASSERT_ANY_THROW(s1.Pop());
 }
+
+TEST(test_lib_stack, True_is_Empty)
+{
+	Stack<int>s1(5);
+	EXPECT_TRUE(s1.isEmpty());
+}
+
+TEST(test_lib_stack, False_is_Empty)
+{
+	Stack<int>s1(1);
+	s1.push(1);
+	EXPECT_FALSE(s1.isEmpty());
+}
+
+TEST(test_lib_stack, True_is_Full)
+{
+	Stack<int>s1(1);
+	s1.push(1);
+	EXPECT_TRUE(s1.isFull());
+}
+
+TEST(test_lib_stack, False_is_Full)
+{
+	Stack<int>s1(5);
+	EXPECT_FALSE(s1.isFull());
+}
