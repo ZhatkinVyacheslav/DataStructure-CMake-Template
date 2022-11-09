@@ -7,7 +7,7 @@ template <class Type> std::ostream& operator <<(std::ostream& out, const Stack<T
 template <class Type>
 class Stack {
 	Type* data;
-	size_t top;
+	int top;
 	size_t size;
 
 public:
@@ -47,7 +47,7 @@ public:
 		if (!isEmpty()) {
 			Type copy = this->Top();
 			top--;
-			return copy;
+			return data[copy];			
 		}
 		else {
 			throw std::logic_error("Error!!! Stack is empty");
@@ -87,7 +87,7 @@ template <class Type>
 std::ostream& operator<< (std::ostream& out, const Stack<Type>& stack) {
 	for (int i = 0; i <= stack.top; i++)
 	{
-		std::cout << "\n| " << stack.datd[i] << " |";
+		std::cout << "\n| " << stack.data[i] << " |";
 	}
 }
 

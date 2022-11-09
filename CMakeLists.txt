@@ -12,8 +12,9 @@ include(cmake/function.cmake)    # подхватываем функции, ре
 
 add_subdirectory(lib_example)    # подключаем дополнительный CMakeLists.txt из подкаталога с именем lib_example
 add_subdirectory(lib_matrix)     # подключаем дополнительный CMakeLists.txt из подкаталога с именем lib_matrix
-add_subdirectory(lib_stack)
-add_subdirectory(lib_queue)
+add_subdirectory(lib_stack)      # подключаем дополнительный CMakeLists.txt из подкаталога с именем lib_stack 
+add_subdirectory(lib_queue)	 # подключаем дополнительный CMakeLists.txt из подкаталога с именем lib_queue
+add_subdirectory(lib_list)	 # подключаем дополнительный CMakeLists.txt из подкаталога с именем lib_list
 add_subdirectory(main)           # подключаем дополнительный CMakeLists.txt из подкаталога с именем main
 
 

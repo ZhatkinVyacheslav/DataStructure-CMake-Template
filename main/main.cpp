@@ -2,12 +2,14 @@
 
 #include <stdio.h>
 #include "../lib_example/example.h"
+#include "../lib_list/list.h"
+#include <iostream>
 
 void main() {
-  int a = 1, b = 4;
-  float result;
-
-  result = division(a, b);
-
-  printf("%d / %d = %.2f\n", a, b, result);
+	CNode node1(5);
+	CNode node2(6);
+	node2.set_next(&node1);
+	node1.print();
+	node2.print();
+	std::cout << "\n" << node2.get_next();
 }
