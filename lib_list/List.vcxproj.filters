@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="D:\prog\CmakeAaDS\DataStructure-CMake-Template\lib_list\list.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="D:\prog\CmakeAaDS\DataStructure-CMake-Template\lib_list\list.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="D:\prog\CmakeAaDS\DataStructure-CMake-Template\lib_list\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{B743D48C-0315-36DA-9259-52607ED0B502}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{021AD50D-8E06-3C1C-9F94-CEA908A992F8}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

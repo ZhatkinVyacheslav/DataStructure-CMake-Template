@@ -1,0 +1,10 @@
+^D:\PROG\CMAKEAADS\DATASTRUCTURE-CMAKE-TEMPLATE\LIB_LIST\CMAKELISTS.TXT
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SD:/prog/CmakeAaDS/DataStructure-CMake-Template -BD:/prog/CmakeAaDS/DataStructure-CMake-Template/build --check-stamp-file D:/prog/CmakeAaDS/DataStructure-CMake-Template/build/lib_list/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
