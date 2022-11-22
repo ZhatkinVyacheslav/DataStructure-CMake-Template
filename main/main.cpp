@@ -2,12 +2,19 @@
 
 #include <stdio.h>
 #include "../lib_example/example.h"
+#include "../lib_list/list.h"
+#include <iostream>
 
 void main() {
-  int a = 1, b = 4;
-  float result;
+	Clist newdata;
+	newdata.push_front(5);
+	newdata.push_back(6);
+	newdata.push_front(4);
+	newdata.printAll();
+	std::cout << "\n";
+	newdata.pop_back ();
+	newdata.printAll();
+	std::cout << "\n";
+	
 
-  result = division(a, b);
-
-  printf("%d / %d = %.2f\n", a, b, result);
 }

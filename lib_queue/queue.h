@@ -1,25 +1,25 @@
 #include <iostream>
 #include <ostream>
 
-template <class Type> class Stack;
-template <class Type> std::ostream& operator <<(std::ostream& out, const Stack<Type>& pair);
+template <class Type> class Queue;
+template <class Type> std::ostream& operator <<(std::ostream& out, const Queue<Type>& pair);
 
 template <class Type>
-class Stack {
+class Queue {
 	Type* data;
-	int top;
+	size_t top;
 	size_t size;
+	size_t end;
 
 public:
-
-	Stack(int size1) {
-
+	Queue(size_t size1) {
 		if (size1 < 1)
 		{
 			throw std::logic_error("Error!!! Size cant be <1");
 		}
 		size = size1;
-		top = -1;
+		top = 0;
+		end = -1;
 		data = new Type[size1];
 	}
 
@@ -31,31 +31,40 @@ public:
 		return data[this->top];
 	}
 
-	void push(const Type& val)
+	Type End()
 	{
-		if (!isFull()) {
-			top++;
-			data[top] = val;
+		if (this->isEmpty())
+		{
+			throw std::logic_error("Error!!! Stack is empty");
 		}
-		else {
-			throw std::logic_error("Error!!!Stack is full");
-		}
+		return data[this->end];
 	}
 
 	Type Pop()
 	{
 		if (!isEmpty()) {
 			Type copy = this->Top();
-			top--;
-			return data[copy];			
+			top++;
+			return data[copy];
 		}
 		else {
 			throw std::logic_error("Error!!! Stack is empty");
 		}
 	}
 
+	void push(const Type& val)
+	{
+		if (!isFull()) {
+			end++;
+			data[end] = val;
+		}
+		else {
+			throw std::logic_error("Error!!!Stack is full");
+		}
+	}
+
 	bool isFull() {
-		if (top == (size - 1))
+		if (top == size - 1)
 		{
 			return true;
 		}
@@ -66,7 +75,7 @@ public:
 	}
 
 	bool isEmpty() {
-		if (top == -1)
+		if (top < end)
 		{
 			return true;
 		}
@@ -76,18 +85,14 @@ public:
 		}
 	}
 
-	friend std::ostream& operator<<  <Type>(std::ostream& out, const Stack& stack);
+	friend std::ostream& operator<<  <Type>(std::ostream& out, const Queue& queue);
 
-	~Stack() {
-		delete[] data;
-	}
 };
 
 template <class Type>
-std::ostream& operator<< (std::ostream& out, const Stack<Type>& stack) {
-	for (int i = 0; i <= stack.top; i++)
+std::ostream& operator<< (std::ostream& out, const Queue<Type>& queue) {
+	for (int i = queue.top; i <= queue.end; i++)
 	{
 		std::cout << "\n| " << stack.data[i] << " |";
 	}
 }
-

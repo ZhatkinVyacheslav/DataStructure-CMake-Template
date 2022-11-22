@@ -10,10 +10,14 @@ include(cmake/function.cmake)    # подхватываем функции, ре
                                  # для простоты мы объединили наборы команд для создания статической библиотеки
 								 # и для создания исполняемого проекта в отдельные функции
 
-add_subdirectory(lib_example)    # подключаем дополнительный CMakeLists.txt из подкаталога с именем lib_example
-add_subdirectory(lib_matrix)     # подключаем дополнительный CMakeLists.txt из подкаталога с именем lib_matrix
-add_subdirectory(lib_stack)
-add_subdirectory(main)           # подключаем дополнительный CMakeLists.txt из подкаталога с именем main
+add_subdirectory(lib_example)      # подключаем дополнительный CMakeLists.txt из подкаталога с именем lib_example
+add_subdirectory(lib_matrix)       # подключаем дополнительный CMakeLists.txt из подкаталога с именем lib_matrix
+add_subdirectory(lib_stack)        # подключаем дополнительный CMakeLists.txt из подкаталога с именем lib_stack 
+add_subdirectory(lib_queue)	   # подключаем дополнительный CMakeLists.txt из подкаталога с именем lib_queue
+add_subdirectory(lib_QueueFromList)# подключаем дополнительный CMakeLists.txt из подкаталога с именем lib_QueuekFromList
+add_subdirectory(lib_list)	   # подключаем дополнительный CMakeLists.txt из подкаталога с именем lib_list
+add_subdirectory(lib_StackFromList)# подключаем дополнительный CMakeLists.txt из подкаталога с именем lib_StackFromList
+add_subdirectory(main)             # подключаем дополнительный CMakeLists.txt из подкаталога с именем main
 
 
 option(BTEST "build test?" ON)   # указываем подключаем ли google-тесты (ON или YES) или нет (OFF или NO)
