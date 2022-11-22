@@ -24,6 +24,12 @@ public:
 	CNode* get_next() {
 		return next;
 	}
+
+	int get_data()
+	{
+		return data;
+	}
+
 };
 
 class Clist
@@ -101,14 +107,38 @@ public:
 		if (isEmpty()) throw std::logic_error("beda");
 		else
 		{
-			CNode* tail_copy = head;
+			CNode* tail_copy = tail;
+			tail = head;
+			while (tail->get_next() != tail_copy)
+			{
+				tail = tail->get_next();
+			}
+			delete tail_copy;
 		}
+	}
+
+	void printAll() 
+	{
+		CNode* head_copy = head;
+		do
+		{
+			head_copy->print();
+			head_copy = head_copy->get_next();
+		} while (head_copy != tail);
+		head_copy->print();
+	}
+
+	CNode* GetLastData() {
+		return tail;
+	}
+
+	CNode* GetFirstData() {
+		return head;
 	}
 
 	bool isEmpty() {
 		if (head == nullptr) return true;
 		else return false;
 	}
-private:
 
 };
