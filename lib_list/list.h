@@ -22,7 +22,11 @@ public:
 	}
 
 	CNode* get_next() {
-		return next;
+		if (next == nullptr)
+		{
+			throw std::logic_error("ERROR! next = nullptr");
+		}
+		else return next;
 	}
 
 	int get_data()
