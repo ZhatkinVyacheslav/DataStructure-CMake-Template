@@ -16,11 +16,13 @@ public:
 
 		if (size1 < 1)
 		{
-			throw std::logic_error("Error!!! Size cant be <1");
+			throw std::logic_error("Error!!! Size cant be < 1");
 		}
-		size = size1;
-		top = -1;
-		data = new Type[size1];
+		else {
+			size = size1;
+			top = -1;
+			data = new Type[size1];
+		}
 	}
 
 	Type Top() {
@@ -47,7 +49,7 @@ public:
 		if (!isEmpty()) {
 			Type copy = this->Top();
 			top--;
-			return data[copy];			
+			return copy;			
 		}
 		else {
 			throw std::logic_error("Error!!! Stack is empty");
