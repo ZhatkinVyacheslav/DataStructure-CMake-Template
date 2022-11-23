@@ -27,8 +27,10 @@ public:
 		{
 			throw std::logic_error("Error!!! Stack is empty");
 		}
-		CNode*copy = data.GetLastData();
-		return copy->get_data();
+		else {
+			CNode* copy = data.GetLastData();
+			return copy->get_data();
+		}
 	}
 
 	int Pop() {
@@ -36,7 +38,8 @@ public:
 			CNode* copy = data.GetLastData();
 			data.pop_back();
 			size--;
-			return copy->get_data();
+			int copy2 = copy->get_data();
+			return copy2;
 		}
 		else {
 			throw std::logic_error("Error!!! Stack is empty");
