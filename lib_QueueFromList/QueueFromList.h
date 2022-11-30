@@ -3,10 +3,10 @@
 #include "../lib_list/list.h"
 
 
-
+template <class Type>
 class Queue {
 
-	Clist data;
+	Clist<Type> data;
 	size_t size;
 
 public:
@@ -18,30 +18,30 @@ public:
 	int End() {
 		if (this->isEmpty())
 		{
-			throw std::logic_error("Error!!! Stack is empty");
+			throw std::logic_error("Error!!! Queue is empty");
 		}
-		CNode* copy = data.GetLastData();
+		CNode<Type>* copy = data.GetLastData();
 		return copy->get_data();
 	}
 
 	int Top() {
 		if (this->isEmpty())
 		{
-			throw std::logic_error("Error!!! Stack is empty");
+			throw std::logic_error("Error!!! Queue is empty");
 		}
-		CNode* copy = data.GetFirstData();
+		CNode<Type>* copy = data.GetFirstData();
 		return copy->get_data();
 	}
 
 	int Pop() {
 		if (!isEmpty()) {
-			CNode* copy = data.GetFirstData();
+			CNode<Type>* copy = data.GetFirstData();
 			data.pop_front();
 			size--;
 			return copy->get_data();
 		}
 		else {
-			throw std::logic_error("Error!!! Stack is empty");
+			throw std::logic_error("Error!!! Queue is empty");
 		}
 	}
 

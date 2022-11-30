@@ -1,13 +1,16 @@
+#pragma once
+
 #include <iostream>
 #include <ostream>
 
+template <class Type>
 class CNode
 {
-	int data;
-	CNode* next;
+	Type data;
+	CNode<Type>* next;
 
 public:
-	CNode(int val) 
+	CNode(Type val)
 	{
 		data = val;
 		next = nullptr;
@@ -21,7 +24,7 @@ public:
 		std::cout << data << " -> ";
 	}
 
-	CNode* get_next() {
+	CNode<Type>* get_next() {
 		if (next == nullptr)
 		{
 			throw std::logic_error("ERROR! next = nullptr");
@@ -36,10 +39,11 @@ public:
 
 };
 
+template <class Type>
 class Clist
 {
-	CNode* head;
-	CNode* tail;
+	CNode<Type>* head;
+	CNode<Type>* tail;
 public:
 	Clist() {
 		head = nullptr;
@@ -58,9 +62,9 @@ public:
 		return len;
 	}
 	
-	void push_back(int val)
+	void push_back(Type val)
 	{
-		CNode* newnode = new CNode(val);
+		CNode<Type>* newnode = new CNode<Type>(val);
 		if (this->isEmpty())
 		{
 			head = newnode;
@@ -72,8 +76,8 @@ public:
 		}
 	}
 
-	void push_front(int val) {
-		CNode* newnode = new CNode(val);
+	void push_front(Type val) {
+		CNode<Type>* newnode = new CNode<Type>(val);
 		if (this->isEmpty())
 		{
 			head = newnode;
@@ -85,13 +89,13 @@ public:
 		}
 	}
 
-	void insert(CNode* pos, int val)
+	void insert(CNode<Type>* pos, int val)
 	{
 		if (pos == nullptr) {
 			throw std::logic_error("ERROR! pos = 0");
 		}
 		else {
-			CNode* newnode = new CNode(val);
+			CNode<Type>* newnode = new CNode(val);
 			newnode->set_next(pos->get_next());
 			pos->set_next(newnode);
 			if (newnode->get_next() == nullptr) tail = newnode;		
@@ -101,7 +105,7 @@ public:
 	void pop_front() {
 		if (isEmpty()) throw std::logic_error("beda");
 		else {
-			CNode* head_copy = head;
+			CNode<Type>* head_copy = head;
 			head = head->get_next();
 			delete head_copy;
 		}
@@ -111,7 +115,7 @@ public:
 		if (isEmpty()) throw std::logic_error("beda");
 		else
 		{
-			CNode* tail_copy = tail;
+			CNode<Type>* tail_copy = tail;
 			tail = head;
 			while (tail->get_next() != tail_copy)
 			{
@@ -123,7 +127,7 @@ public:
 
 	void printAll() 
 	{
-		CNode* head_copy = head;
+		CNode<Type>* head_copy = head;
 		do
 		{
 			head_copy->print();
@@ -132,11 +136,11 @@ public:
 		head_copy->print();
 	}
 
-	CNode* GetLastData() {
+	CNode<Type>* GetLastData() {
 		return tail;
 	}
 
-	CNode* GetFirstData() {
+	CNode<Type>* GetFirstData() {
 		return head;
 	}
 
