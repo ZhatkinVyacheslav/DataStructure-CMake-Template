@@ -25,14 +25,14 @@ public:
 	}
 
 	CNode<Type>* get_next() {
-		if (next == nullptr)
+		/*if (next == nullptr)
 		{
 			throw std::logic_error("ERROR! next = nullptr");
 		}
-		else return next;
+		else*/ return next;
 	}
 
-	int get_data()
+	Type get_data()
 	{
 		return data;
 	}
@@ -42,6 +42,7 @@ public:
 template <class Type>
 class Clist
 {
+protected:
 	CNode<Type>* head;
 	CNode<Type>* tail;
 public:
@@ -53,7 +54,7 @@ public:
 	size_t size()
 	{
 		size_t len = 0;
-		CNode* head_copy = head;
+		CNode<Type>* head_copy = head;
 		while (head_copy != nullptr)
 		{
 			head_copy = head_copy->get_next();
@@ -95,10 +96,34 @@ public:
 			throw std::logic_error("ERROR! pos = 0");
 		}
 		else {
-			CNode<Type>* newnode = new CNode(val);
+			CNode<Type>* newnode = new CNode<Type>(val);
 			newnode->set_next(pos->get_next());
 			pos->set_next(newnode);
 			if (newnode->get_next() == nullptr) tail = newnode;		
+		}
+	}
+
+	void erase(CNode<Type>* pos) {
+		if (pos < 0) throw std::logic_error("Pos < 0");	
+		if (isEmpty()) throw std::logic_error("beda");
+
+		if (pos != head)
+		{
+			CNode<Type>* copy = head;
+			CNode<Type>* DeletedNode = head->get_next();
+			int i = 0;
+			while (DeletedNode != pos)
+			{
+				i++;
+				copy = copy->get_next();
+				DeletedNode = DeletedNode->get_next();
+			}
+			copy->set_next(DeletedNode->get_next());
+			DeletedNode = nullptr;
+		}
+		else
+		{
+			this->pop_front();
 		}
 	}
 
@@ -121,21 +146,27 @@ public:
 			{
 				tail = tail->get_next();
 			}
-			delete tail_copy;
+			tail_copy = nullptr;
 		}
 	}
 
-	void printAll() 
+	void printAll()
 	{
-		CNode<Type>* head_copy = head;
-		do
+		if (this->isEmpty())
 		{
-			head_copy->print();
-			head_copy = head_copy->get_next();
-		} while (head_copy != tail);
-		head_copy->print();
+			std::cout << "Is empty";
+		}
+		else
+		{
+			CNode<Type>* head_copy = head;
+			do
+			{
+				head_copy->print();
+				head_copy = head_copy->get_next();
+			} while (head_copy != nullptr);
+			//head_copy->print();
+		}
 	}
-
 	CNode<Type>* GetLastData() {
 		return tail;
 	}

@@ -4,27 +4,35 @@
 
 
 template <class Type>
-class Queue {
+class LQueue {
 
+private:
 	Clist<Type> data;
 	size_t size;
 
 public:
 
-	Queue() {
+	LQueue() {
 		size = 0;
 	}
 
-	int End() {
+	size_t GetSize()
+	{
+		return size;
+	}
+
+	Type End() {
 		if (this->isEmpty())
 		{
 			throw std::logic_error("Error!!! Queue is empty");
 		}
-		CNode<Type>* copy = data.GetLastData();
-		return copy->get_data();
+		else {
+			CNode<Type>* copy = data.GetLastData();
+			return copy->get_data();
+		}
 	}
 
-	int Top() {
+	Type Top() {
 		if (this->isEmpty())
 		{
 			throw std::logic_error("Error!!! Queue is empty");
@@ -33,19 +41,17 @@ public:
 		return copy->get_data();
 	}
 
-	int Pop() {
+	void Pop() {
 		if (!isEmpty()) {
-			CNode<Type>* copy = data.GetFirstData();
 			data.pop_front();
 			size--;
-			return copy->get_data();
 		}
 		else {
 			throw std::logic_error("Error!!! Queue is empty");
 		}
 	}
 
-	void push(const int val)
+	void Push(const Type val)
 	{		
 		size++;
 		data.push_back(val);
