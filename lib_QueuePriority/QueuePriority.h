@@ -39,7 +39,13 @@ public:
             data.push_back(val);
         }
         else {
-           
+          CNode<Type>* newnode = new CNode<Type>(val);
+          cur = head;
+          while () {
+            if (cur->next.get_data().first >)
+            cur = cur->next;
+          }
+
         }
     }
 
