@@ -71,4 +71,8 @@ public:
 			return false;
 		}
 	}
+
+	~LQueue() {
+		data.clear();
+	}
 };

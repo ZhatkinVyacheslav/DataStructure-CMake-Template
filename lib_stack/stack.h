@@ -78,7 +78,7 @@ public:
 		}
 	}
 
-	friend std::ostream& operator<<  <Type>(std::ostream& out, const Stack& stack);
+	friend std::ostream& operator<< <Type>(std::ostream& out, const Stack& stack);
 
 	~Stack() {
 		delete[] data;

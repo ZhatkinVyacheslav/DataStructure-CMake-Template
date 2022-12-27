@@ -5,14 +5,14 @@ template <class Type> class Queue;
 template <class Type> std::ostream& operator <<(std::ostream& out, const Queue<Type>& pair);
 
 template <class Type>
-class Queue {
+class CQueue {
 	Type* data;
 	size_t top;
 	size_t size;
 	size_t end;
 
 public:
-	Queue(size_t size1) {
+	CQueue(size_t size1) {
 		if (size1 < 1)
 		{
 			throw std::logic_error("Error!!! Size cant be <1");
@@ -45,7 +45,7 @@ public:
 		if (!isEmpty()) {
 			Type copy = this->Top();
 			top++;
-			return data[copy];
+			return copy;
 		}
 		else {
 			throw std::logic_error("Error!!! Stack is empty");
@@ -64,7 +64,7 @@ public:
 	}
 
 	bool isFull() {
-		if (top == size - 1)
+		if (end == size - 1)
 		{
 			return true;
 		}
@@ -85,7 +85,7 @@ public:
 		}
 	}
 
-	friend std::ostream& operator<<  <Type>(std::ostream& out, const Queue& queue);
+	friend std::ostream& operator<< (std::ostream& out, const Queue<Type>& queue);
 
 };
 

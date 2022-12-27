@@ -1,81 +1,102 @@
 #pragma once
 
-#include "../lib_QueueFromList/QueueFromList.h"
 #include <iostream>
 #include <ostream>
-#include "../lib_list/list.h"
+#include "../lib_priorityList/priorutyList.h"
 
 using namespace std;
 
 template <class Type>
-class PriorityQueue :public LQueue <Type>
+class PriorityQueue
 {
 protected:
-  list <pair <int, Type>> data;
-  size_t = size;
+  PriorityCList<Type> Qdata;
+  size_t size;
 
 public:
   PriorityQueue () {
       size = 0;
   }
 
-  virtual void Push(const Type val) {}
+  void Push(const int pr, const Type val) {
+      Qdata.push_back(pr, val);
+      size++;
+  }
 
-  virtual void Pop() {}
+  void Pop() {
+      if (isEmpty())
+      {
+          throw std::logic_error("Empty!");
+      }
+      Qdata.pop_front();
+      size--;
+  }
+    
+
+  Type Top() {
+      if (isEmpty())
+      {
+          throw std::logic_error("Empty!");
+      }
+      return Qdata.GetFirstValue();
+  }
+    
+ /* size_t size() {
+      return size;
+  }*/
+
+  bool isEmpty() {
+      if (size == 0) return true;
+      else return false;
+  }
 
   void Print() {
-
+      Qdata.print();
   }
 };
 
+
+
+
+
 template <class Type>
-class PriorityQueueMode1 :public PriorityQueue <Type>
+class PriorityQueueMode1 : public PriorityQueue <Type>
 {
+
 public:
-    void Push(const pair <int, Type> val) override
+    void Push(const int pr, const Type val) /*override */
     {
-        if (isEmpty()) {
-            size++;
-            data.push_back(val);
-        }
-        else {
-          CNode<Type>* newnode = new CNode<Type>(val);
-          cur = head;
-          while () {
-            if (cur->next.get_data().first >)
-            cur = cur->next;
-          }
-
-        }
+        Qdata.push_back_priority(pr, val);
+        size++;
     }
 
-    void Pop() override
-    {
-        if (!isEmpty()) {
-            data.pop_front();
-            size--;
-        }
-        else {
-            throw std::logic_error("Error!!! Queue is empty");
-        }
-    }
 };
+
+
+
 
 template <class Type>
 class PriorityQueueMode2 : public PriorityQueue <Type>
 {
+
 public:
-    void Push(const Type val) override 
+
+    void Pop() 
     {
-        size++;
-        data.push_back(val);
+        if (isEmpty())
+        {
+            throw std::logic_error("Empty!");
+        }
+        Qdata.pop_front_priority();
+        size--;
     }
 
-    void Pop() override
+    Type Top()
     {
-        int biggestpr;
-        data
-
-        CNode
+        if (isEmpty())
+        {
+            throw std::logic_error("Empty!");
+        }
+        return Qdata.GetFirstValuePriority();
     }
 };

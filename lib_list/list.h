@@ -16,7 +16,7 @@ public:
 		next = nullptr;
 	}
 
-	void set_next(CNode* newnext) {
+	void set_next(CNode<Type>* newnext) {
 		next = newnext;
 	}
 
@@ -140,13 +140,21 @@ public:
 		if (isEmpty()) throw std::logic_error("beda");
 		else
 		{
-			CNode<Type>* tail_copy = tail;
-			tail = head;
-			while (tail->get_next() != tail_copy)
+			if (head == tail)
 			{
-				tail = tail->get_next();
+				head = nullptr;
+				tail = nullptr;
 			}
-			tail_copy = nullptr;
+			else
+			{
+				CNode<Type>* tail_copy = tail;
+				tail = head;
+				while (tail->get_next() != tail_copy)
+				{
+					tail = tail->get_next();
+				}
+				tail_copy = nullptr;
+			}
 		}
 	}
 
@@ -159,12 +167,12 @@ public:
 		else
 		{
 			CNode<Type>* head_copy = head;
-			do
+			while (head_copy->get_next() != tail)
 			{
 				head_copy->print();
 				head_copy = head_copy->get_next();
-			} while (head_copy != nullptr);
-			//head_copy->print();
+			}
+			head_copy->print();
 		}
 	}
 	CNode<Type>* GetLastData() {
@@ -180,4 +188,20 @@ public:
 		else return false;
 	}
 
+	void clear() {
+		/*if (!isEmpty())
+		{
+			while (tail != nullptr)
+			{
+				CNode <Type>* copy = head;
+				head = head->get_next;
+				copy = nullptr;
+			}
+		}*/
+	}
+
+	~Clist()
+	{
+		this->clear();
+	}
 };

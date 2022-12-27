@@ -2,9 +2,11 @@
 #include <ostream>
 #include "../lib_list/list.h"
 
+
+template <class Type>
 class StackFromList {
 
-	Clist data;
+	Clist<Type> data;
 	size_t size;
 
 public:
@@ -12,33 +14,29 @@ public:
 		size = 0;
 	}
 	
-	StackFromList(int a) {
-		size = 1; 
-		data.push_back(a);
-	}
 
-	void Push(int a) {
+	void Push(Type a) {
 		data.push_back(a);
 		size++;
 	}
 
-	int Top() {
+	Type Top() {
 		if (this->isEmpty())
 		{
 			throw std::logic_error("Error!!! Stack is empty");
 		}
 		else {
-			CNode* copy = data.GetLastData();
+			CNode<Type>* copy = data.GetLastData();
 			return copy->get_data();
 		}
 	}
 
-	int Pop() {
+	Type Pop() {
 		if (!isEmpty()) {
-			CNode* copy = data.GetLastData();
+			CNode<Type>* copy = data.GetLastData();
+			Type copy2 = copy->get_data();
 			data.pop_back();
 			size--;
-			int copy2 = copy->get_data();
 			return copy2;
 		}
 		else {
@@ -55,12 +53,10 @@ public:
 	}
 
 	bool isEmpty() {
-		if (size == 0)
-		{
+		if (size == 0) {
 			return true;
 		}
-		else
-		{
+		else {
 			return false;
 		}
 	}
