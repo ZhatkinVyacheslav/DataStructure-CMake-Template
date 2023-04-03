@@ -20,14 +20,6 @@ add_subdirectory(lib_QueuePriority)# подключаем дополнитель
 add_subdirectory(lib_list)	   # подключаем дополнительный CMakeLists.txt из подкаталога с именем lib_list
 add_subdirectory(lib_StackFromList)# подключаем дополнительный CMakeLists.txt из подкаталога с именем lib_StackFromList
 add_subdirectory(lib_DSU)          # подключаем дополнительный CMakeLists.txt из подкаталога с именем lib_DSU
-add_subdirectory(lib_HashOpenShuffle)
-add_subdirectory(lib_HashTabList)
-add_subdirectory(lib_LinTabList)
-add_subdirectory(lib_LinTabMass)
-add_subdirectory(lib_OrdTabMass)
-add_subdirectory(lib_TabSearchTree)
-add_subdirectory(lib_polinom)
-add_subdirectory(lib_postfix)
 add_subdirectory(lib_tree)
 add_subdirectory(main)             # подключаем дополнительный CMakeLists.txt из подкаталога с именем main
 
