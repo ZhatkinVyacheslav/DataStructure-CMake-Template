@@ -19,8 +19,9 @@ add_subdirectory(lib_priorityList) # подключаем дополнитель
 add_subdirectory(lib_QueuePriority)# подключаем дополнительный CMakeLists.txt из подкаталога с именем lib_QueuePrioritys
 add_subdirectory(lib_list)	   # подключаем дополнительный CMakeLists.txt из подкаталога с именем lib_list
 add_subdirectory(lib_StackFromList)# подключаем дополнительный CMakeLists.txt из подкаталога с именем lib_StackFromList
-add_subdirectory(lib_DSU)          # подключаем дополнительный CMakeLists.txt из подкаталога с именем lib_DSU
-add_subdirectory(lib_tree)
+#add_subdirectory(lib_DSU)          # подключаем дополнительный CMakeLists.txt из подкаталога с именем lib_DSU
+add_subdirectory(lib_tree)	   # подключаем дополнительный CMakeLists.txt из подкаталога с именем lib_tree
+add_subdirectory(lib_HashTable)	   # подключаем дополнительный CMakeLists.txt из подкаталога с именем lib_HashTable
 add_subdirectory(main)             # подключаем дополнительный CMakeLists.txt из подкаталога с именем main
 
 option(BTEST "build test?" ON)   # указываем подключаем ли google-тесты (ON или YES) или нет (OFF или NO)
