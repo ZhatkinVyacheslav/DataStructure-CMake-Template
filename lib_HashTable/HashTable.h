@@ -39,12 +39,6 @@ private:
 		return res % 30;
 	}
 
-	int Recalculation(int res) {
-		if (res == 30) res = 1;
-		if (res > 30) res -= 30;
-		return res;
-	}
-
 public:
 	HashTable() {
 		data = new std::pair<int, CNodeForTable>[30];
@@ -58,17 +52,20 @@ public:
 		CNodeForTable NewNode(Link1, Word1);
 		bool flag = false;
 		int ind = HashFunction(Word1);
-		Recalculation(ind);
+		if (ind > 30) ind %= 30;
 		
 		while (data[ind].first != NULL && !flag)
 		{
-			if (data->second.Word == NewNode.Word) flag = true;
+			if (data[ind].second.Word == NewNode.Word) flag = true;
 			else {
-				ind += 3;
-				Recalculation(ind);
+				ind += 7;
+				if (ind > 30) ind %= 30;
 			}
 		}
-		if (!flag) data[ind].second = NewNode;
+		if (!flag) {
+			data[ind].second = NewNode;
+			data[ind].first = ind;
+		}
 	}
 
 	void Print() {

@@ -8,6 +8,7 @@ template <class Type>
 class Tree;
 template <class Type>
 class FindTree;
+class MathTree;
 
 template <class Type>
 class Cnode {
@@ -18,6 +19,7 @@ class Cnode {
 public:
 
 	friend class FindTree<Type>;
+	friend class MathTree;
 
 	Cnode(Type data1) {
 		data = data1;
@@ -25,6 +27,7 @@ public:
 		Right = nullptr;
 	}
 	Cnode() {
+		data = NULL;
 		Left = nullptr;
 		Right = nullptr;
 	}
@@ -252,70 +255,148 @@ private:
 };
 
 
+class CharCnode {
+	char data;
+	CharCnode* Left;
+	CharCnode* Right;
 
-template <class Type>
-class MathTree : public Tree <Type>
+public:
+	friend class MathTree;
+
+	CharCnode(char data1) {
+		data = data1;
+		Left = nullptr;
+		Right = nullptr;
+	}
+	CharCnode() {
+		data = '0';
+		Left = nullptr;
+		Right = nullptr;
+	}
+
+	CharCnode(char data1, CharCnode* Left1, CharCnode* Right1)
+	{
+		data = data1;
+		Left = Left1;
+		Right = Right1;
+	}
+
+	void SetData(char data1) {
+		data = data1;
+	}
+
+};
+
+class MathTree /*: public Tree <char>*/
 {
 private:
-	Cnode<char>* root;
+	CharCnode* root;
 
-	void postorder(Node* root1) {
+	bool isOperator(char c) {
+		return (c == '+' || c == '-' || c == '*' || c == '/' || c == '^');
+	}
+
+	void postorder(CharCnode* root1) {
 		if (root == nullptr) {
 			return;
 		}
 
-		postorder(root1->left);
-		postorder(root1->right);
-		cout << root1->data;
+		postorder(root1->Left);
+		postorder(root1->Right);
+		std::cout << root1->data;
 	}
 
-	void inorder(Node * root1) {
+	void inorder(CharCnode* root1) {
 		if (root1 == nullptr) {
 			return;
 		}
 
 		if (isOperator(root1->data)) {
-			cout << "(";
+			std::cout << "(";
 		}
 
-		inorder(root1->left);
-		cout << root1->data;
-		inorder(root1->right);
+		inorder(root1->Left);
+		std::cout << root1->data;
+		inorder(root1->Right);
 
 		if (isOperator(root1->data)) {
-			cout << ")";
+			std::cout << ")";
 		}
 	}
+	int Calculate(CharCnode* root1) {
+		int res;
+		if (isOperator(root1->Left->data)) {
+			CharCnode* NewLeftNode = new CharCnode();
+			NewLeftNode->data = Calculate(root1->Left);
+			root1->Left = NewLeftNode;
+		}
+		if (isOperator(root1->Right->data)) {
+			CharCnode* NewRightNode = new CharCnode();
+			NewRightNode->data = Calculate(root1->Right);
+			root1->Right = NewRightNode;
+		}
 
+		switch (root1->data)
+		{
+		case '+': {
+			res = (int)(root1->Left->data - 48) + (int)(root1->Right->data - 48);
+			break;
+		}
+		case '-': {
+			res = (int)(root1->Left->data - 48) - (int)(root1->Right->data - 48);
+			break;
+		}
+		case '*': {
+			res = (int)(root1->Left->data - 48) * (int)(root1->Right->data - 48);
+			break;
+		}
+		case '/': {
+			res = (int)(root1->Left->data - 48) / (int)(root1->Right->data - 48);
+			break;
+		}
+		default:
+			break;
+		}
+
+		char result = (char)(((int)'0') + res);
+		return result;
+	}
+	
 public:
 	MathTree() {
 		root = nullptr;
 	}
 
-	void Push(string postfix) {
+	void Push(std::string postfix) {
 
 		if (postfix.length() == 0) {
-			return nullptr;
+			throw std::logic_error("pusto");
 		}
 
-		StackFromList<Cnode<char>*> s;
+		StackFromList<CharCnode*> s;
 
-		for (char c : postfix)
+		for (int i = 0; i < postfix.length(); i++)
 		{
-			if (isOperator(c)) {
-				Cnode<char>* x = s.top();
+			if (isOperator(postfix[i])) {
+				CharCnode* x = s.Top();
 				s.Pop();
-				Cnode<char>* y = s.top();
+				CharCnode* y = s.Top();
 				s.Pop();
-				Cnode<char>* node = new Cnode<char>*(c, y, x);
+				CharCnode* node = new CharCnode();
+				node->data = postfix[i];
+				node->Left = x;
+				node->Right = y;
 				s.Push(node);
-			} else s.Push(new Cnode<char>*(c));
+			}
+			else
+			{
+				char c = postfix[i];
+				CharCnode* node = new CharCnode();
+				node->data = c;
+				s.Push(node);
+			}
 		}
 		root = s.Top();
-	}
-
-	bool isOperator(char c) {
-		return (c == '+' || c == '-' || c == '*' || c == '/' || c == '^');
 	}
 
 	void PostPrint() {
@@ -326,41 +407,9 @@ public:
 		inorder(root);
 	}
 
-	char Calculate(Cnode<char>* root1) {
-		int res;
-		if (isOperator(root1->Left->data)) {
-			Cnode<char>* NewLeftNode = new Cnode<char>*(Calculate(root1->Left));
-			root1->Left = NewLeftNode;
-		}
-		if (isOperator(root1->Right->data)) {
-			Cnode<char>* NewRightNode = new Cnode<char>*(Calculate(root1->Right));
-			root1->Right = NewRightNode;
-		}
-
-		switch (root1->data)
-		{
-		case '+': {
-			res = atoi(root1->Left->data) + atoi(root1->Right->data);
-			break;
-		}
-		case '-': {
-			res = atoi(root1->Left->data) - atoi(root1->Right->data);
-			break;
-		}
-		case '*': {
-			res = atoi(root1->Left->data) * atoi(root1->Right->data);
-			break;
-		}
-		case '/': {
-			res = atoi(root1->Left->data) / atoi(root1->Right->data);
-			break;
-		}
-			default:
-				break;
-		}
-
-		char result = (char)(((int)'0') + res);
-		return result;
+	char Calculate() {
+		return Calculate(root);
 	}
+
 };
 
