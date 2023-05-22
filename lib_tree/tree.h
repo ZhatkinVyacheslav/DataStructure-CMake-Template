@@ -287,7 +287,7 @@ public:
 
 };
 
-class MathTree /*: public Tree <char>*/
+class MathTree
 {
 private:
 	CharCnode* root;
@@ -323,6 +323,7 @@ private:
 			std::cout << ")";
 		}
 	}
+
 	int Calculate(CharCnode* root1) {
 		int res;
 		if (isOperator(root1->Left->data)) {
@@ -343,7 +344,7 @@ private:
 			break;
 		}
 		case '-': {
-			res = (int)(root1->Left->data - 48) - (int)(root1->Right->data - 48);
+			res =  (int)(root1->Left->data - 48) - (int)(root1->Right->data - 48);
 			break;
 		}
 		case '*': {
@@ -391,8 +392,7 @@ public:
 			else
 			{
 				char c = postfix[i];
-				CharCnode* node = new CharCnode();
-				node->data = c;
+				CharCnode* node = new CharCnode(c);
 				s.Push(node);
 			}
 		}
