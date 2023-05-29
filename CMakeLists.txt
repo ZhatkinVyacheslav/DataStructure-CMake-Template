@@ -22,6 +22,7 @@ add_subdirectory(lib_StackFromList)# подключаем дополнитель
 add_subdirectory(lib_DSU)          # подключаем дополнительный CMakeLists.txt из подкаталога с именем lib_DSU
 add_subdirectory(lib_tree)	   # подключаем дополнительный CMakeLists.txt из подкаталога с именем lib_tree
 add_subdirectory(lib_HashTable)	   # подключаем дополнительный CMakeLists.txt из подкаталога с именем lib_HashTable
+add_subdirectory(lib_polinom)	   # подключаем дополнительный CMakeLists.txt из подкаталога с именем lib_polinom
 add_subdirectory(main)             # подключаем дополнительный CMakeLists.txt из подкаталога с именем main
 
 option(BTEST "build test?" ON)   # указываем подключаем ли google-тесты (ON или YES) или нет (OFF или NO)
