@@ -2,6 +2,7 @@
 #include <ostream>
 #include "../lib_list/list.h"
 #include <math.h>
+#include <vector>
 
 class Element
 {
@@ -48,7 +49,74 @@ private:
 	int* rank;
 	int size;
 	friend class MazeDSU;
+
 public:
+	DSU(std::vector<std::pair<int, int>> VecEnemies , int size1) {
+		sets = new Element[size1];
+		rank = new int[size1];
+		size = size1;
+		int sizeSets = 2;
+		int* MainSets = new int[size]; 
+		for (int i = 0; i < size; i++) {
+			sets[i] = new Element(i);
+			rank[i] = 1;
+		}
+
+		for (int j = 0; j < size; j++) MainSets[j] = NULL;
+		MainSets[0] = VecEnemies[0].first;
+		MainSets[1] = VecEnemies[0].second;
+		for (int i = 0; i < VecEnemies.size(); i++) {
+			bool flag = true;
+
+			if (find(VecEnemies[i].first) == find(VecEnemies[i].second)) {
+				ununit(find(VecEnemies[i].second), VecEnemies[i].second);
+
+				for (int j = 2; j < sizeSets; j++) {
+					if (find(VecEnemies[i].first) != MainSets[j]) {
+						unite(MainSets[j], VecEnemies[i].second);
+						flag = false;
+					}
+				}
+				if (flag) {
+					MainSets[sizeSets] = VecEnemies[i].second;
+					sizeSets++;
+					flag = false;
+				}
+				return;
+			}
+
+			for (int j = 0; j < sizeSets; j++) {
+				if (find(VecEnemies[i].first) == MainSets[j]) flag = false;
+			}
+
+			if (flag) {
+				for (int j = 0; j < sizeSets; j++) {
+					if (find(VecEnemies[i].second) != MainSets[j]) {
+						unite(MainSets[j], VecEnemies[i].first);
+						flag = false;
+						j = sizeSets;
+					}
+				}
+			}
+			
+			flag = true;
+
+			for (int j = 0; j < sizeSets; j++) {
+				if (find(VecEnemies[i].second) == MainSets[j]) flag = false;
+			}
+
+			if (flag) {
+				for (int j = 0; j < sizeSets; j++) {
+					if (find(VecEnemies[i].first) != MainSets[j]) {
+						unite(MainSets[j], VecEnemies[i].second);
+						flag = false;
+						j = sizeSets;
+					}
+				}
+			}
+		}
+	}
+
 	DSU(int size1) {
 		sets = new Element[size1];
 		rank = new int[size1];
@@ -60,10 +128,10 @@ public:
 	}
 
 	int find(int elem) {
-		for (int i = 0; i < size; i++) {
-			if (elem == sets[i].data) return sets[i].rep->data;
-		}
-		return NULL;
+		
+		return sets[elem].rep->data;
+		
+		//return NULL;
 	}
 
 	void unite(int elem1, int elem2) {
@@ -71,6 +139,7 @@ public:
 		for (int j = 1; j < rank[elem1]; j++) {
 			cur = cur->next;
 		}
+		sets[elem2].rep = sets[elem1].rep;
 		cur->next = sets[elem2].rep;
 		cur = cur->next;
 		for (int j = 0; j < rank[elem2]; j++)
@@ -82,13 +151,26 @@ public:
 		rank[elem2] = 0;
 	}
 
+	void ununit(int pos, int el) {
+		Element* cur = sets[pos].BaseFunk();
+
+		if (pos == el) throw std::logic_error("tak nel'zya");
+		while (cur->next->data != el) {
+			cur = cur->next;
+		}
+		rank[cur->next->data] = 1;
+		cur->next->rep = cur->next;
+		cur->next = cur->next->next;
+		rank[pos]--;
+	}
+
 	void print() {
 		for (int i = 0; i < size; i++)
 		{
 			if (rank[i] > 0) {
 				Element* cur = sets[i].rep;
 				for (int j = 0; j < rank[i]; j++) {
-					cur->print();
+					std::cout << cur->data << "-> ";
 					cur = cur->next;
 				}
 				std::cout << "\n";
